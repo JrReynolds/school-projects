@@ -19,9 +19,10 @@ def HashSort(A):
 	for i in A:
 		new[i] += 1
 	final = []
+	print new
 	for i in range(len(new)):
-		for j in range(i):
-			final.append(A[i])
+		for j in range(new[i]):
+			final.append(i)
 	return final
 
 def main():
