@@ -19,32 +19,33 @@ def MergeSort(A):
 	RHCounter = 0
 	FinalCounter = 0
 	while FinalCounter < len(A):
-		if LHCounter < len(LH):
-			if LH[LHCounter] < RH[RHCounter]:
+		if LHCounter < len(LH) and RHCounter < len(RH):
+			if LH[LHCounter] <= RH[RHCounter]:
 				returnList[FinalCounter] = LH[LHCounter]
 				FinalCounter += 1
 				LHCounter += 1
-			elif LH[LHCounter] > RH[RHCounter]:
+			else: # LH[LHCounter] > RH[RHCounter]:
 				returnList[FinalCounter] = RH[RHCounter]
 				FinalCounter += 1
 				RHCounter += 1
-			else:
-				retrunList[FinalCounter] = RH[RHCounter]
-				FinalCounter += 1
-				RHCounter += 1
-				returnList[FinalCounter] = LH[LHCounter]
-				FinalCounter += 1
-				LHCounter += 1
 		else:
 			while RHCounter < len(RH):
 				returnList[FinalCounter] = RH[RHCounter]
 				FinalCounter += 1
 				RHCounter += 1
+			while LHCounter < len(LH):
+				returnList[FinalCounter] = LH[LHCounter]
+				FinalCounter += 1
+				LHCounter += 1
+
 	return returnList
 		
 
-def QuickSort(A, flag):
-	pass
+def QuickSort(A, low, high, flag):
+	if low < high:
+		pivot = A[0]
+		for i in range(len(A)):
+
 
 def HashSort(A):
 	new = []
@@ -59,14 +60,14 @@ def HashSort(A):
 	return final
 
 def main():
-	starterList = generate_list(10)
+	starterList = generate_list(1000)
 	defaultSorted = starterList[:]
 	defaultSorted.sort()
-	print starterList
-	print defaultSorted
 	HashSorted = HashSort(starterList[:])
-	print HashSorted
+	if HashSorted != defaultSorted:
+		print "Error in HashSort"
 	MergeSorted = MergeSort(starterList[:])
-	print MergeSorted
+	if MergeSorted != defaultSorted:
+		print "Error in MergeSort"
 
 main()
