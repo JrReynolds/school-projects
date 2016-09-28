@@ -2,13 +2,17 @@
 #define JULIA_H
 
 #include <string>
-#include <fstream>
+
 
 class Julia{
+    public:
+        Julia(const unsigned int width, const unsigned int height, const unsigned int repetitions, const double a, const double b, const std::string outfile);
+        ~Julia();
+        void GenerateGrid();
+        void ProcessGrid();
+        int ProcessCoords(int x, int y);
 
-    Julia::Julia(unsigned int width, unsigned int height, unsigned int repetitions, double a, double b, std::string outfile);
-    Julia::GenerateGrid();
-    Julia::ProcessGrid();
+
 
 };
 
