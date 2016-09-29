@@ -1,48 +1,53 @@
 #include "julia.h"
 #include "extra.h"
 #include <fstream>
+#include <cmath>
+#include <iostream>
 
-Julia::Julia(const unsigned int width, const unsigned int height, const unsigned int repetitions, const double a, const double b, const std::string outfile)
+Julia::Julia( unsigned int width,  unsigned int height,  unsigned int repetitions,  double a,  double b,  char outfile[])
     : mWidth(width), mHeight(height), mReps(repetitions), mAConst(a), mBConst(b), mOutfile(outfile){
-
-    extra ExtraFuncs();
-    //extra *ExtraFuncs = new extra(); is this the proper way to allocate data to the heap?
-    //verify values
-//    if(mWidth <= 0){
-//        while(mWidth <= 0){
-//            std::cout << "Invalid width parameter (must be greater than 0). Enter again: " << std::endl;
-//            std::cin >> mWidth;
-//        }
-//    }
-//    if(mHeight <= 0){
-//        while(mHeight <= 0){
-//            std::cout << "Invalid height parameter (must be greater than 0). Enter again: " << std::endl;
-//            std::cin >> mHeight;
-//        }
-//    }
-//    if(mReps <= 0){
-//        while(mReps <= 0){
-//            std::cout << "Invalid repetitions parameter (must be greater than 0). Enter again: " << std::endl;
-//            std::cin >> mReps;
-//        }
-//    }
-//    if()
 
 }
 
-int Julia::ProcessCoords(int x, int y){
+double Julia::distance(double x1, double y1, double x2, double y2){
+    double retval = std::sqrt(std::pow((x2-x1), 2)+std::pow((y2-y1), 2));
+    return retval;
+}
+
+
+int Julia::ProcessCoords(double x, double y){
     //x = x*x - y*y + a
     //y = 2*x*y + b
+    std::cout << x << " " << y << std::endl;
     int escape = 0;
-    for(int i = 0; i < mReps; i++) {
-        double x = (x * x) - (y * y) + mAConst;
-        double y = (2 * x * y) + mBConst;
-        double distance = ExtraFuncs.distance(0, 0, x, y);
-        if(!distance >= 2){
+    double newx;
+    double newy;
+//    double mx = -2.0 + 10 * (4.0/9);
+//    double my = 2.0 - 10 * (4.0/9);
+    for(int i = 0; i < mReps; i++){
+        if(distance(0, 0, x, y) < 2.0){
+            newx = (x*x)-(y*y)+mAConst;
+            newy = (2.0*x*y)+mBConst;
+            x = newx;
+            y = newy;
             escape++;
         }
-    }
     return escape;
+    }
+
+//    int escape = 0;
+//    double mx = -2.0 + 10 * (4.0/9);
+//    double my = 2.0 - 10 * (4.0/9);
+//    for(int i = 0; i < mReps; i++){
+//        double d = distance(0, 0, mx, my);
+//        if(d < 2.0){
+//           std::cout << escape << std::endl;
+//            escape++;
+//            mx = (mx * mx) - (my * my) + mAConst;
+//            my = (2.0 * mx * my) + mBConst;
+//        }
+//    }
+//    return escape;
 }
 
 void Julia::GenerateGrid(){
@@ -54,5 +59,5 @@ void Julia::ProcessGrid(){
 }
 
 Julia::~Julia(){
-    delete ExtraFuncs; //is this the proper way to delete ExtraFuncs?
+     //is this the proper way to delete ExtraFuncs?
 }
