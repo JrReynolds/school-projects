@@ -1,14 +1,18 @@
 import random
 
 def bubbleSort(A):
+    compares = 0
+    swaps = 0
     flag = True
     while flag:
         flag = False
         for i in range(len(A)-1):
+            compares+=1
             if A[i] > A[i+1]:
                 A[i], A[i+1] = A[i+1], A[i]
+                swaps+=1
                 flag = True
-    return A
+    return (A, compares, swaps)
 
 def shakerSort(A):
     flag = True
@@ -41,19 +45,19 @@ def createRandomList(size):
         newList.append(random.randrange(0, size))
     return newList
 
+def createMSList(size):
+    newList = []
+    for i in range(size):
+        newList.append(i)
+    newList[0], newList[size-1] = newList[size-1], newList[0]
+    return newList
+
 def main():
-    initialList = createRandomList(10)
-    defaultSorted = initialList[:]
-    defaultSorted.sort()
-    bubbleSorted = bubbleSort(initialList[:])
-    if bubbleSorted != defaultSorted:
-        print "Error in Bubble Sort"
-    shakerSorted = shakerSort(initialList[:])
-    if shakerSorted != defaultSorted:
-        print "Error in Shaker Sort"
-    selectionSorted = selectionSort(initialList[:])
-    if selectionSorted != defaultSorted:
-        print "Error in Selection Sort"
+    randomList = createRandomList(8)
+    MSList = createMSList(8)
+    bubbleSortedR = bubbleSort(randomList[:])
+    bubbleSortedMS = bubbleSort(MSList[:])
+    print bubbleSortedR[1], bubbleSortedR[2]
 
 
 
