@@ -15,29 +15,39 @@ def bubbleSort(A):
     return (A, compares, swaps)
 
 def shakerSort(A):
+    compares = 0
+    swaps = 0
     flag = True
     while flag:
         flag = False
         for i in range(len(A)-1):
+            compares += 1
             if A[i] > A[i+1]:
+                swaps += 1
                 A[i], A[i+1] = A[i+1], A[i]
                 flag = True
         for i in range(1, len(A), -1):
+            compares += 1
             if A[i] < A[i-1]:
+                swaps += 1
                 A[i], A[i+1] = A[i+1], A[i]
                 flag = True
-    return A
+    return (A, compares, swaps)
 
 def selectionSort(A):
+    compares = 0
+    swaps = 0
     for i in range(len(A)):
         most = A[i]
         mostIndex = i
         for j in range(i, len(A)):
+            compares += 1
             if A[j] < most:
                 most = A[j]
                 mostIndex = j
         A[i], A[mostIndex] = A[mostIndex], A[i]
-    return A
+        swaps += 1
+    return (A, compares, swaps)
 
 def createRandomList(size):
     newList = []
@@ -53,11 +63,27 @@ def createMSList(size):
     return newList
 
 def main():
-    randomList = createRandomList(8)
-    MSList = createMSList(8)
-    bubbleSortedR = bubbleSort(randomList[:])
-    bubbleSortedMS = bubbleSort(MSList[:])
-    print bubbleSortedR[1], bubbleSortedR[2]
+    file = open("output.txt", "w")
+    sizeList = []
+    sizeListCounter = 8
+    while sizeListCounter <= 4096:
+        sizeList.append(sizeListCounter)
+        sizeListCounter *= 2
+    for i in sizeList:
+        RList = createRandomList(i)
+        MSList = createMSList(i)
+        funcs = [bubbleSort, shakerSort, selectionSort]
+        for f in funcs:
+            RResult = f(RList[:])
+            RResultString = str(RResult[1]) + "\t" + str(RResult[2]) + "\t\t"
+            MSResult = f(MSList[:])
+            MSResultString = str(MSResult[1]) + "\t" + str(MSResult[2]) + "\n"
+            file.write(RResultString + MSResultString)
+    file.close()
+
+
+
+
 
 
 
