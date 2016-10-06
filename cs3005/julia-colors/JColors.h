@@ -13,13 +13,14 @@ class JColors {
     public:
         JColors(std::string infile, std::string outfile);
         int Colorify(int val);
-        std::vector<std::array<int, 3>> GenerateColors(int max);
+        std::vector<std::vector<int>> GenerateColors(int max);
+        std::vector<std::vector<int>> & GenerateGradient(std::vector<int> & start, std::vector<int> & end, int step);
         ~JColors();
 
     private:
-        int mRED[3] = {255, 0, 0};
-        int mGREEN[3] = {0, 255, 0};
-        int mBLUE[3] = {0, 0, 255};
+        std::vector<int> mRED = {255, 0, 0};
+        std::vector<int> mGREEN = {0, 255, 0};
+        std::vector<int> mBLUE = {0, 0, 255};
 
 };
 
