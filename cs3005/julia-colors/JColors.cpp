@@ -12,29 +12,30 @@ JColors::JColors(std::string infile, std::string outfile){
     in.open(infile);
     out.open(outfile);
 
-    std::vector<std::vector<int>> a = GenerateColors(10);
+    std::vector<std::vector<int>> a = GenerateGradient(mRED, mBLUE, 10);
 
     in.close();
     out.close();
 
 }
 
-std::vector<std::vector<int>> JColors::GenerateColors(int max){
-    std::vector<std::vector<int>> colors = GenerateGradient(mRED, mBLUE, max);
-    for(int i = 0; i < colors.size(); i++){
-        std::cout << "[";
-        for(int j = 0; j < colors[i].size(); j++){
-            std::cout << colors[i][j] << ", ";
-        }
-        std::cout << "]" << std::endl;
-    }
-
-
-
-
-    return colors;
-
-}
+//std::vector<std::vector<int>> JColors::GenerateColors(int max){
+//    std::vector<std::vector<int>> colors = GenerateGradient(mRED, mBLUE, max);
+//    for(int i = 0; i < colors.size(); i++){
+//        std::cout << "[";
+//        for(int j = 0; j < colors[i].size(); j++){
+//            std::cout << colors[i][j] << ", ";
+//        }
+//        std::cout << "]" << std::endl;
+//    }
+//
+//
+//
+//
+//
+//    return colors;
+//
+//}
 
 std::vector<std::vector<int>> JColors::GenerateGradient(std::vector<int> & start, std::vector<int> & end, int step){
     //initialize return vector

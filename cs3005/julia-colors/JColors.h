@@ -13,7 +13,7 @@ class JColors {
     public:
         JColors(std::string infile, std::string outfile);
         int Colorify(int val);
-        std::vector<std::vector<int>> GenerateColors(int max);
+//        std::vector<std::vector<int>> GenerateColors(int max);
         std::vector<std::vector<int>> GenerateGradient(std::vector<int> & start, std::vector<int> & end, int step);
         ~JColors();
 
