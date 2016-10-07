@@ -71,30 +71,30 @@ def HashSort(A):
             final.append(i)
     return final
 
-def main():
-    size = 10
-    starterList = generate_list(size)
-    defaultSorted = starterList[:]
-    defaultSorted.sort()
-    HashSorted = HashSort(starterList[:])
-    if HashSorted != defaultSorted:
-        print "Error in HashSort"
-    MergeSorted = MergeSort(starterList[:])
-    if MergeSorted != defaultSorted:
-        print "Error in MergeSort"
-    defaultQuickSorted = QuickSort(starterList[:], 0, size, False)
-    if defaultQuickSorted != defaultSorted:
-        print "Error in QuickSort (default)"
-        print defaultSorted
-        print defaultQuickSorted
-    modQuickSorted = QuickSort(starterList[:], 0, size, True)
-    if modQuickSorted != defaultSorted:
-        print "Error in QuickSort (modified)"
-        print defaultSorted
-        print modQuickSorted
+# def main():
+#     size = 10
+#     starterList = generate_list(size)
+#     defaultSorted = starterList[:]
+#     defaultSorted.sort()
+#     HashSorted = HashSort(starterList[:])
+#     if HashSorted != defaultSorted:
+#         print "Error in HashSort"
+#     MergeSorted = MergeSort(starterList[:])
+#     if MergeSorted != defaultSorted:
+#         print "Error in MergeSort"
+#     defaultQuickSorted = QuickSort(starterList[:], 0, size, False)
+#     if defaultQuickSorted != defaultSorted:
+#         print "Error in QuickSort (default)"
+#         print defaultSorted
+#         print defaultQuickSorted
+#     modQuickSorted = QuickSort(starterList[:], 0, size, True)
+#     if modQuickSorted != defaultSorted:
+#         print "Error in QuickSort (modified)"
+#         print defaultSorted
+#         print modQuickSorted
+#
+#     #assignment 3 stuff
+#     print
 
-    #assignment 3 stuff
-    print
 
-
-main()
+# main()

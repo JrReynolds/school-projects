@@ -1,4 +1,6 @@
 import random
+import sys
+from sort2 import *
 
 def bubbleSort(A):
     compares = 0
@@ -63,7 +65,7 @@ def createMSList(size):
     return newList
 
 def main():
-    file = open("output.txt", "w")
+    file = open("RandomCompares.txt", "w")
     sizeList = []
     sizeListCounter = 8
     while sizeListCounter <= 4096:
@@ -71,15 +73,21 @@ def main():
         sizeListCounter *= 2
     for i in sizeList:
         RList = createRandomList(i)
-        MSList = createMSList(i)
-        funcs = [bubbleSort, shakerSort, selectionSort]
+        # MSList = createMSList(i)
+        funcs = [bubbleSort, shakerSort, selectionSort, MergeSort, QuickSort, HashSort]
         for f in funcs:
-            RResult = f(RList[:])
-            RResultString = str(RResult[1]) + "\t" + str(RResult[2]) + "\t\t"
-            MSResult = f(MSList[:])
-            MSResultString = str(MSResult[1]) + "\t" + str(MSResult[2]) + "\n"
-            file.write(RResultString + MSResultString)
+            if f != QuickSort:
+                a = f(RList)
+                RResultString = str(a[1])
+            else:
+                a = f(RList, 0, i, False)
+                b = f(RList, 0, i, True)
+                RResultString = str(a[1]) + str(b[1])
+            file.write(RResultString)
+
     file.close()
+
+
 
 
 
