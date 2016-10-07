@@ -10,7 +10,7 @@ JEscape::JEscape(int width, int height, double a, double b, int iterations, std:
     fileObject.open(mOutput, std::ios::out);
 
     int escapeValue;
-
+    fileObject << width << " " << height << " " << iterations << std::endl;
     for(int i = 0; i < mHeight; i++){
         double paramI = 2.0-(i*(4.0/(mHeight-1)));
         for(int j = 0; j < mWidth; j++){

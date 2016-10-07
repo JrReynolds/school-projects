@@ -2,23 +2,40 @@
 #include <fstream>
 #include <iostream>
 
-JColors::JColors(std::string infile, std::string outfile){
+JColors::JColors(std::string infile, std::string outfile, int maxColor){
     std::ofstream out;
     std::ifstream in;
 
 
     std::string line;
 
+    int width;
+    int height;
+    int its;
+
     in.open(infile);
     out.open(outfile);
 
-    std::vector<std::vector<int>> a = GenerateGradient(mRED, mBLUE, 10);
+    in >> width >> height >> its;
+    out << width << " " << height << " " << maxColor << std::endl;
+
+    std::vector<std::vector<int>> colors = GenerateGradient(mRED, mBLUE, its);
+
+    while(getline(in, line)){
+        int escapeVal;
+        for(int i = 0; i<width; i++){
+            in >> escapeVal;
+            for(int j = 0; j<3;j++) {
+                out << colors[escapeVal][j] << " ";
+            }
+        }
+        out << std::endl;
+    }
 
     in.close();
     out.close();
 
 }
-
 //std::vector<std::vector<int>> JColors::GenerateColors(int max){
 //    std::vector<std::vector<int>> colors = GenerateGradient(mRED, mBLUE, max);
 //    for(int i = 0; i < colors.size(); i++){
@@ -41,7 +58,7 @@ std::vector<std::vector<int>> JColors::GenerateGradient(std::vector<int> & start
     //initialize return vector
     std::vector<std::vector<int>> gradientColors;
     //a final number will be added to make up for the remaining rgb values, so to get step number of colors total we must subtract one here
-    step = step-1;
+//    step = step-1;
     //get the amount we need to change r g and b by each iteration
     double rDiff = (start[0] - end[0])/(double)step;
     std::cout << rDiff << std::endl;
