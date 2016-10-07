@@ -8,6 +8,6 @@ int main(){
         //convert escape values
     std::string in = "input.txt";
     std::string out = "output.txt";
-    JColors julia(in, out);
+    JColors julia(in, out, 255);
     return 0;
 }
