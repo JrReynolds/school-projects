@@ -21,6 +21,7 @@ class JColors {
         std::vector<int> mRED = {255, 0, 0};
         std::vector<int> mGREEN = {0, 255, 0};
         std::vector<int> mBLUE = {0, 0, 255};
+        int mMaxColor;
 
 };
 
