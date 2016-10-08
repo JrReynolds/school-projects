@@ -8,19 +8,23 @@ def generate_list(length):
     return list1
 
 def MergeSort(A):
+    compares = 0
     if len(A) == 1:
-        return A
+        return (A, compares, 0)
     mid = len(A) // 2
     LH = A[:mid]
     RH = A[mid:]
-    LH = MergeSort(LH)
-    RH = MergeSort(RH)
+    LH, newcompares, newswaps = MergeSort(LH)
+    compares += newcompares
+    RH, newcompares, newswaps = MergeSort(RH)
+    compares += newcompares
     returnList = [-1] * len(A)
     LHCounter = 0
     RHCounter = 0
     FinalCounter = 0
     while FinalCounter < len(A):
         if LHCounter < len(LH) and RHCounter < len(RH):
+            compares += 1
             if LH[LHCounter] <= RH[RHCounter]:
                 returnList[FinalCounter] = LH[LHCounter]
                 FinalCounter += 1
@@ -30,35 +34,48 @@ def MergeSort(A):
                 FinalCounter += 1
                 RHCounter += 1
         else:
-            while RHCounter < len(RH):
-                returnList[FinalCounter] = RH[RHCounter]
-                FinalCounter += 1
-                RHCounter += 1
             while LHCounter < len(LH):
                 returnList[FinalCounter] = LH[LHCounter]
                 FinalCounter += 1
                 LHCounter += 1
+            while RHCounter < len(RH):
+                returnList[FinalCounter] = RH[RHCounter]
+                FinalCounter += 1
+                RHCounter += 1
 
-    return returnList
+    return (returnList, compares, 0)
 
-def QuickSort(A, low, high, flag):
-    if low == high:
-        return
+def QuickSortR(A, low, high, flag):
+    compares = 0
+    swaps = 0
+    if low >= high:
+        return A, compares, swaps
     if flag:
         mid = (low + high)//2
         A[mid], A[low] = A[low], A[mid]
     pivot = A[low]
     lmbt = low+1
-    for i in range(low+1, high):
+    for i in range(low+1, high+1):
+        compares += 1
         if A[i]<pivot:
             A[lmbt], A[i] = A[i], A[lmbt]
             lmbt+=1
     rmlt = lmbt-1
     A[low], A[rmlt] = A[rmlt], A[low]
-    QuickSort(A, low, rmlt, flag)
-    QuickSort(A, lmbt, high, flag)
-    return A
+    A, newcompares, swaps = QuickSortR(A, low, rmlt-1, flag)
+    compares += newcompares
+    A, newcompares, swaps = QuickSortR(A, lmbt, high, flag)
+    compares += newcompares
+    return (A, compares, swaps)
 
+def QuickSortRegular(A):
+    A, compares, swaps = QuickSortR(A, 0, len(A)-1, False)
+    return (A, compares, swaps)
+
+def QuickSortMod(A):
+    A, compares, swaps = QuickSortR(A, 0, len(A)-1, True)
+    return (A, compares, swaps)
+    
 def HashSort(A):
     new = []
     for i in A:
@@ -69,7 +86,9 @@ def HashSort(A):
     for i in range(len(new)):
         for j in range(new[i]):
             final.append(i)
-    return final
+    compares = len(A)
+    swaps = len(A)
+    return (final, compares, swaps)
 
 # def main():
 #     size = 10

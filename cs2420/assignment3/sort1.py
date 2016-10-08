@@ -65,25 +65,25 @@ def createMSList(size):
     return newList
 
 def main():
+    sys.setrecursionlimit(5000)
     file = open("RandomCompares.txt", "w")
     sizeList = []
     sizeListCounter = 8
     while sizeListCounter <= 4096:
         sizeList.append(sizeListCounter)
         sizeListCounter *= 2
+    print sizeList
     for i in sizeList:
-        RList = createRandomList(i)
+        print "Doing size", i
         # MSList = createMSList(i)
-        funcs = [bubbleSort, shakerSort, selectionSort, MergeSort, QuickSort, HashSort]
+        funcs = [bubbleSort, shakerSort, selectionSort, MergeSort, QuickSortRegular, QuickSortMod, HashSort]
         for f in funcs:
-            if f != QuickSort:
-                a = f(RList)
-                RResultString = str(a[1])
-            else:
-                a = f(RList, 0, i, False)
-                b = f(RList, 0, i, True)
-                RResultString = str(a[1]) + str(b[1])
+            RList = createRandomList(i)
+            a, comps, swaps = f(RList)
+            RResultString = str(comps) + " "
+        
             file.write(RResultString)
+        file.write("\n")
 
     file.close()
 
