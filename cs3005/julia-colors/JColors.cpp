@@ -2,7 +2,9 @@
 #include <fstream>
 #include <iostream>
 
-JColors::JColors(std::string infile, std::string outfile, int maxColor){
+JColors::JColors(std::string infile, std::string outfile, int maxColor)
+        :mMaxColor(maxColor)
+{
     std::ofstream out;
     std::ifstream in;
 
@@ -55,6 +57,17 @@ JColors::JColors(std::string infile, std::string outfile, int maxColor){
 //}
 
 std::vector<std::vector<int>> JColors::GenerateGradient(std::vector<int> & start, std::vector<int> & end, int step){
+    //make sure the values are below the specified maximum
+    for(int i = 0; i < start.size(); i++){
+        if(start[i] > mMaxColor){
+            start[i] = mMaxColor;
+        }
+    }
+    for(int i = 0; i < end.size(); i++){
+        if(end[i] > mMaxColor){
+            end[i] = mMaxColor;
+        }
+    }
     //initialize return vector
     std::vector<std::vector<int>> gradientColors;
     //a final number will be added to make up for the remaining rgb values, so to get step number of colors total we must subtract one here
