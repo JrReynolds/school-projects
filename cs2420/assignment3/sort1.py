@@ -1,5 +1,6 @@
 import random
 import sys
+import math
 from sort2 import *
 
 def bubbleSort(A):
@@ -83,12 +84,13 @@ def main():
         for f in funcs:
             RList = createRandomList(i)
             a, comps, swaps = f(RList)
-            RCResultString = str(comps) + " "
-            RSResultString = str(swaps) + " "
+            print math.log(float(comps), 2)
+            RCResultString = str(math.log(float(comps), 2)) + " "
+            RSResultString = str(math.log(float(swaps), 2)) + " "
             MSList = createMSList(i)
             a, comps, swaps = f(MSList)
-            MSCResultString = str(comps) + " "
-            MSSResultString = str(swaps) + " "
+            MSCResultString = str(math.log(float(comps), 2)) + " "
+            MSSResultString = str(math.log(float(swaps), 2)) + " "
         
             RCfile.write(RCResultString)
             RSfile.write(RSResultString)

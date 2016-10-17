@@ -27,19 +27,23 @@ def MergeSort(A):
         if LHCounter < len(LH) and RHCounter < len(RH):
             compares += 1
             if LH[LHCounter] <= RH[RHCounter]:
+                swaps += 1
                 returnList[FinalCounter] = LH[LHCounter]
                 FinalCounter += 1
                 LHCounter += 1
             else:  # LH[LHCounter] > RH[RHCounter]:
+                swaps += 1
                 returnList[FinalCounter] = RH[RHCounter]
                 FinalCounter += 1
                 RHCounter += 1
         else:
             while LHCounter < len(LH):
+                swaps += 1
                 returnList[FinalCounter] = LH[LHCounter]
                 FinalCounter += 1
                 LHCounter += 1
             while RHCounter < len(RH):
+                swaps += 1
                 returnList[FinalCounter] = RH[RHCounter]
                 FinalCounter += 1
                 RHCounter += 1
