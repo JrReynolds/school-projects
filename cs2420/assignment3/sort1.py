@@ -66,7 +66,10 @@ def createMSList(size):
 
 def main():
     sys.setrecursionlimit(5000)
-    file = open("RandomCompares.txt", "w")
+    RCfile = open("RandomCompares.txt", "w")
+    MSCfile = open("MostlySortedCompares.txt", "w")
+    RSfile = open("RandomSwaps.txt", "w")
+    MSSfile = open("MostlySortedSwaps.txt", "w")
     sizeList = []
     sizeListCounter = 8
     while sizeListCounter <= 4096:
@@ -80,12 +83,27 @@ def main():
         for f in funcs:
             RList = createRandomList(i)
             a, comps, swaps = f(RList)
-            RResultString = str(comps) + " "
+            RCResultString = str(comps) + " "
+            RSResultString = str(swaps) + " "
+            MSList = createMSList(i)
+            a, comps, swaps = f(MSList)
+            MSCResultString = str(comps) + " "
+            MSSResultString = str(swaps) + " "
         
-            file.write(RResultString)
-        file.write("\n")
+            RCfile.write(RCResultString)
+            RSfile.write(RSResultString)
+            MSCfile.write(MSCResultString)
+            MSSfile.write(MSSResultString)
 
-    file.close()
+        RCfile.write("\n")
+        RSfile.write("\n")
+        MSCfile.write("\n")
+        MSSfile.write("\n")
+
+    RCfile.close()
+    MSCfile.close()
+    RSfile.close()
+    MSSfile.close()
 
 
 

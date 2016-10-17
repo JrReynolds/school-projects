@@ -9,8 +9,9 @@ def generate_list(length):
 
 def MergeSort(A):
     compares = 0
+    swaps = 0
     if len(A) == 1:
-        return (A, compares, 0)
+        return (A, compares, swaps)
     mid = len(A) // 2
     LH = A[:mid]
     RH = A[mid:]
@@ -43,7 +44,7 @@ def MergeSort(A):
                 FinalCounter += 1
                 RHCounter += 1
 
-    return (returnList, compares, 0)
+    return (returnList, compares, swaps)
 
 def QuickSortR(A, low, high, flag):
     compares = 0
@@ -53,19 +54,24 @@ def QuickSortR(A, low, high, flag):
     if flag:
         mid = (low + high)//2
         A[mid], A[low] = A[low], A[mid]
+        swaps += 1
     pivot = A[low]
     lmbt = low+1
     for i in range(low+1, high+1):
         compares += 1
         if A[i]<pivot:
             A[lmbt], A[i] = A[i], A[lmbt]
+            swaps += 1
             lmbt+=1
     rmlt = lmbt-1
     A[low], A[rmlt] = A[rmlt], A[low]
-    A, newcompares, swaps = QuickSortR(A, low, rmlt-1, flag)
+    swaps += 1
+    A, newcompares, newswaps = QuickSortR(A, low, rmlt-1, flag)
     compares += newcompares
-    A, newcompares, swaps = QuickSortR(A, lmbt, high, flag)
+    swaps += newswaps
+    A, newcompares, newswaps = QuickSortR(A, lmbt, high, flag)
     compares += newcompares
+    swaps += newswaps
     return (A, compares, swaps)
 
 def QuickSortRegular(A):
