@@ -15,15 +15,24 @@ def InsertStudent(A, student):
         A.append(student)
 
 def main():
-    a = Student.Student("Henry", "Jones", "123-45-7899", "indianajones@awesome.com", "40")
-    b = Student.Student("Anakin", "Skywalker", "357-89-7642", "darthvader@darkside.com", "30")
-    c = Student.Student("Anakin", "Skywalker", "357-89-7642", "darthvader@darkside.com", "30")
-    print a == b
-    print b == c
+    # a = Student.Student("Henry", "Jones", "123-45-7899", "indianajones@awesome.com", "40")
+    # b = Student.Student("Anakin", "Skywalker", "357-89-7642", "darthvader@darkside.com", "30")
+    # c = Student.Student("Anakin", "Skywalker", "357-89-7642", "darthvader@darkside.com", "30")
+    # print a == b
+    # print b == c
+    #
+    # database = []
+    # InsertStudent(database, a)
+    # InsertStudent(database, b)
+    # InsertStudent(database, c)
 
     database = []
-    InsertStudent(database, a)
-    InsertStudent(database, b)
-    InsertStudent(database, c)
+    StudentFile = open("InsertNames.txt", "r")
+    for line in StudentFile:
+        line = line.split()
+        student = Student.Student(line[0], line[1], line[2], line[3], line[4])
+        InsertStudent(database, student)
 
-main()
+    StudentFile.close()
+
+print timeSomething(main)
