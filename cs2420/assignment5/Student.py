@@ -12,6 +12,9 @@ class Student:
         elif isinstance(other, str):
             return self.mSSN == other
 
+    def __contains__(self, other):
+        return self==other
+
     def getSSN(self):
         return self.mSSN
 
