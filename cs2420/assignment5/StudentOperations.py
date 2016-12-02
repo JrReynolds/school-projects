@@ -59,8 +59,9 @@ def RetrieveNames(A, filename):
     countTotal = 0.0
     for line in RetrieveFile:
         line = line.split()
-        ageTotal += int(PullName(A, line[0]))
-        countTotal += 1
+        ageTotal += float(PullName(A, line[0]))
+        if ageTotal != 0:
+            countTotal += 1
     print "Average Age of Retrieved: {}".format(ageTotal/countTotal)
 
     RetrieveFile.close()

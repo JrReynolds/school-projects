@@ -36,7 +36,6 @@ class BST:
         else:
             if not self.Exists(data):
                 self.InsertR(data, self.mRoot)
-                self.mSize += 1
                 return True
             else:
                 print "ERROR: Duplicate entry detected, omitting {}".format(data)
@@ -47,6 +46,7 @@ class BST:
             if current.L is None:
                 n = Node(data)
                 current.L = n
+                # print "Entry {} inserted".format(data)
             else:
                 self.InsertR(data, current.L)
 
@@ -54,18 +54,60 @@ class BST:
             if current.R is None:
                 n = Node(data)
                 current.R = n
+                # print "Entry {} inserted".format(data)
             else:
                 self.InsertR(data, current.R)
 
     def Traverse(self, callback, *args):
+        self.TraverseR(self.mRoot, callback, *args)
+
+    def TraverseR(self, current, callback, *args):
+        if current is not None:
+            callback(current.data, *args)
+            if current.L is not None:
+                self.TraverseR(current.L, callback, *args)
+            if current.R is not None:
+                self.TraverseR(current.R, callback, *args)
+
+    def Delete(self, data):
+        if self.Exists(data):
+            self.mRoot = self.DeleteR(data, self.mRoot)
+            return True
+        else:
+            print "ERROR: Entry not found {}".format(data)
+
+    def DeleteR(self, data, current):
+        if data < current.data:
+            current.L = self.DeleteR(data, current.L)
+        elif data > current.data:
+            current.R = self.DeleteR(data, current.R)
+        else:
+            if not current.L and not current.R:
+                current = None
+            elif current.L is None:
+                current = current.R
+            elif current.R is None:
+                current = current.L
+            else:
+                s = current.R
+                while s.L:
+                    s = s.L
+                current.data = s.data
+                current.R = self.DeleteR(data, current.R)
+                return current
+
+
 
 
 
 def main():
     database = BST()
-    database.Insert(11)
-    database.Insert(12)
-    database.Insert(11)
-    print database.TrueSize()
+    data = [20, 10, 30, 5, 25, 40, 2, 8, 23, 27, 42, 22]
+    for i in data:
+        database.Insert(i)
+    database.Delete(42)
+    print database.Exists(42)
+    database.Delete(30)
+    print database.Exists(30)
 
-main()
+# main()

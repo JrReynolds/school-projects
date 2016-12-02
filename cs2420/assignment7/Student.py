@@ -18,6 +18,31 @@ class Student:
     def __str__(self):
         return "{} {} ({})".format(self.getFName(), self.getLName(), self.getSSN())
 
+    def __gt__(self, other):
+        if isinstance(other, Student):
+            a = self.intify()
+            b = other.intify()
+            return a > b
+        elif isinstance(other, str):
+            a = self.intify()
+            b = int(other.split("-"))
+            return a > b
+
+    def __lt__(self, other):
+        if isinstance(other, Student):
+            a = self.intify()
+            b = other.intify()
+            return a < b
+        elif isinstance(other, str):
+            a = self.intify()
+            b = int(other.split("-"))
+            return a < b
+
+    def intify(self):
+        ssn = self.getSSN()
+        ssn = ssn.split("-")
+        return int(ssn)
+
     def getSSN(self):
         return self.mSSN
 

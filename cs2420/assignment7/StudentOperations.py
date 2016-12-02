@@ -1,5 +1,6 @@
 import time
 import Student
+import bst
 
 
 def timeSomething(func, *args):
@@ -20,7 +21,7 @@ def InsertAllStudents(A, filename):
     for line in StudentFile:
         line = line.split()
         student = Student.Student(line[0], line[1], line[2], line[3], line[4])
-        InsertStudent(A, student)
+        A.Insert(student)
     StudentFile.close()
 
 
@@ -42,7 +43,7 @@ def DeleteStudents(A, filename):
     DeleteFile = open(filename, "r")
     for line in DeleteFile:
         line = line.split()
-        RemoveStudent(A, line[0])
+        A.Delete(line)
     DeleteFile.close()
 
 def PullName(A, ssn):
@@ -71,19 +72,16 @@ def main():
     # b = Student.Student("Anakin", "Skywalker", "357-89-7642", "darthvader@darkside.com", "30")
     # c = Student.Student("Anakin", "Skywalker", "357-89-7642", "darthvader@darkside.com", "30")
     #
-    # database = []
-    # InsertStudent(database, a)
-    # InsertStudent(database, b)
-    # InsertStudent(database, c)
-    #
-    # print str(PullName(database, "123-45-7899"))
-    # print database
+    # database = bst.BST()
+    # database.Insert(a)
+    # database.Insert(b)
+    # database.Insert(c)
 
-    database = []
+    database = bst.BST()
     print "Insert Duration: " + str(timeSomething(InsertAllStudents, database, "InsertNames.txt"))
-    print "Traverse Duration: " + str(timeSomething(TraverseAllStudents, database))
+    # print "Traverse Duration: " + str(timeSomething(TraverseAllStudents, database))
     print "Delete Duration: " + str(timeSomething(DeleteStudents, database, "DeleteNames.txt"))
-    print "Retrieve Duration: " + str(timeSomething(RetrieveNames, database, "RetrieveNames.txt"))
+    # print "Retrieve Duration: " + str(timeSomething(RetrieveNames, database, "RetrieveNames.txt"))
 
 
 
