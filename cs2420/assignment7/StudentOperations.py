@@ -28,9 +28,7 @@ def InsertAllStudents(A, filename):
 
 def TraverseAllStudents(A):
     total = 0.0
-    for student in A:
-        total += int(student.getAge())
-    print "Average Age: " + str(total/len(A))
+    A.T
 
 
 def RemoveStudent(A, ssn):
@@ -59,9 +57,10 @@ def RetrieveNames(A, filename):
     ageTotal = 0.0
     countTotal = 0.0
     for line in RetrieveFile:
-        line = line.split()
-        ageTotal += int(PullName(A, line[0]))
-        countTotal += 1
+        ans = A.Retrieve(line.strip())
+        if ans:
+            ageTotal += int(ans.getAge())
+            countTotal += 1
     print "Average Age of Retrieved: {}".format(ageTotal/countTotal)
 
     RetrieveFile.close()
@@ -77,11 +76,15 @@ def main():
     # database.Insert(b)
     # database.Insert(c)
 
+
     database = bst.BST()
     print "Insert Duration: " + str(timeSomething(InsertAllStudents, database, "InsertNames.txt"))
     # print "Traverse Duration: " + str(timeSomething(TraverseAllStudents, database))
     print "Delete Duration: " + str(timeSomething(DeleteStudents, database, "DeleteNames.txt"))
-    # print "Retrieve Duration: " + str(timeSomething(RetrieveNames, database, "RetrieveNames.txt"))
+    print "Retrieve Duration: " + str(timeSomething(RetrieveNames, database, "RetrieveNames.txt"))
+
+
+
 
 
 

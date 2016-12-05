@@ -77,25 +77,32 @@ class BST:
             print "ERROR: Entry not found {}".format(data)
 
     def DeleteR(self, data, current):
-        if data < current.data:
-            current.L = self.DeleteR(data, current.L)
-        elif data > current.data:
-            current.R = self.DeleteR(data, current.R)
-        else:
-            if not current.L and not current.R:
-                current = None
-            elif current.L is None:
-                current = current.R
-            elif current.R is None:
-                current = current.L
-            else:
-                s = current.R
-                while s.L:
-                    s = s.L
-                current.data = s.data
+        if current is not None:
+            if data < current.data:
+                current.L = self.DeleteR(data, current.L)
+            elif data > current.data:
                 current.R = self.DeleteR(data, current.R)
-                return current
+            else:
+                if not current.L and not current.R:
+                    current = None
+                elif current.L is None:
+                    current = current.R
+                elif current.R is None:
+                    current = current.L
+                else:
+                    s = current.R
+                    while s.L:
+                        s = s.L
+                    current.data = s.data
+                    current.R = self.DeleteR(data, current.R)
+        return current
 
+    def Retrieve(self, data):
+        a = self.Exists(data, True)
+        if a:
+            return a.data
+        else:
+            return False
 
 
 
@@ -109,5 +116,16 @@ def main():
     print database.Exists(42)
     database.Delete(30)
     print database.Exists(30)
+    database.Delete(40)
+    print database.Exists(40)
+    database.Delete(23)
+    print database.Exists(23)
+    retData = [20, 5, 8, 30]
+    total = 0
+    for i in retData:
+        a = database.Retrieve(i)
+        if a:
+            total += a
+    print total
 
 # main()

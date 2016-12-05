@@ -25,7 +25,8 @@ class Student:
             return a > b
         elif isinstance(other, str):
             a = self.intify()
-            b = int(other.split("-"))
+            b = other.split("-")
+            b = int("".join(b))
             return a > b
 
     def __lt__(self, other):
@@ -35,12 +36,14 @@ class Student:
             return a < b
         elif isinstance(other, str):
             a = self.intify()
-            b = int(other.split("-"))
+            b = other.split("-")
+            b = int("".join(b))
             return a < b
 
     def intify(self):
         ssn = self.getSSN()
         ssn = ssn.split("-")
+        ssn = int("".join(ssn))
         return int(ssn)
 
     def getSSN(self):
