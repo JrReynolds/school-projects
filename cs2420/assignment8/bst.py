@@ -111,11 +111,16 @@ class BST:
         else:
             return False
 
-
+gTotal = 0
+def AddItems(s):
+    global gTotal
+    gTotal += s
+    
 def PrintItems(s):
     print s
 
 def main():
+    global gTotal
     database = BST()
     data = [20, 10, 30, 5, 25, 40, 2, 8, 23, 27, 45, 42, 22]
     for i in data:
@@ -128,7 +133,9 @@ def main():
     print database.Exists(40)
     database.Delete(23)
     print database.Exists(23)
-    database.Traverse(PrintItems)
+    gTotal = 0
+    database.Traverse(AddItems)
+    print "gTotal is",gTotal
     retData = [20, 5, 8, 30]
     total = 0
     for i in retData:
@@ -137,4 +144,4 @@ def main():
             total += a
     print total
 
-# main()
+main()

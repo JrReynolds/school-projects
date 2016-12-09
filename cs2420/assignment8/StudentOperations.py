@@ -1,6 +1,6 @@
 import time
 import Student
-import bst
+import hashtable
 
 
 def timeSomething(func, *args):
@@ -18,7 +18,9 @@ def InsertStudent(A, student):
 
 def InsertAllStudents(A, filename):
     StudentFile = open(filename, "r")
+    print "Open File (Insert)"
     for line in StudentFile:
+        # print line
         line = line.split()
         student = Student.Student(line[0], line[1], line[2], line[3], line[4])
         A.Insert(student)
@@ -46,7 +48,10 @@ def DeleteStudents(A, filename):
     DeleteFile = open(filename, "r")
     for line in DeleteFile:
         line = line.split()
-        A.Delete(line[0])
+        line = line[0]
+        line = line.split("-")
+        line = "".join(line)
+        A.Delete(line)
     DeleteFile.close()
 
 def PullName(A, ssn):
@@ -62,7 +67,13 @@ def RetrieveNames(A, filename):
     ageTotal = 0.0
     countTotal = 0.0
     for line in RetrieveFile:
-        ans = A.Retrieve(line.strip())
+        retrVal = line.split()
+        retrVal = retrVal[0]
+        retrVal = retrVal.split("-")
+        retrVal = "".join(retrVal)
+        print retrVal
+        ans = A.Retrieve(retrVal)
+        print ans
         if ans:
             ageTotal += int(ans.getAge())
             countTotal += 1
@@ -82,9 +93,9 @@ def main():
     # database.Insert(c)
 
 
-    database = bst.BST()
+    database = hashtable.HashTable(30000)
     print "Insert Duration: " + str(timeSomething(InsertAllStudents, database, "InsertNames.txt"))
-    print "Traverse Duration: " + str(timeSomething(TraverseAllStudents, database))
+    # print "Traverse Duration: " + str(timeSomething(TraverseAllStudents, database))
     print "Delete Duration: " + str(timeSomething(DeleteStudents, database, "DeleteNames.txt"))
     print "Retrieve Duration: " + str(timeSomething(RetrieveNames, database, "RetrieveNames.txt"))
 
