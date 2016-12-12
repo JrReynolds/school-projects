@@ -56,4 +56,4 @@ class Student:
         return self.mLName
 
     def getAge(self):
-        return self.mAge
+        return int(self.mAge)

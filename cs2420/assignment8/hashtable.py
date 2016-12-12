@@ -1,4 +1,5 @@
 import math
+import random
 
 
 
@@ -31,7 +32,7 @@ class HashTable:
             if index == self.mTableSize:
                 index = 0
             if index == initIndex:
-                break
+                return False
         return False
 
     def Insert(self, data):
@@ -62,9 +63,8 @@ class HashTable:
                 if index == self.mTableSize:
                     index = 0
                 if index == initIndex:
-                    break
+                    return False
             return False
-
     def Delete(self, data):
         if self.Exists(data):
             initIndex = int(data) % self.mTableSize
@@ -79,25 +79,25 @@ class HashTable:
                 self.mTable[index] = False
                 self.mSize -= 1
 
-# def main():
-#     HT = HashTable(300000)
-#     HT.Insert(11)
-#     HT.Insert(11)
-#     HT.Insert(72)
-#     print HT.Retrieve(72)
-#     print HT.mSize
-#     HT.Delete(11)
-#     print HT.Exists(11)
-#     HT.Delete(72)
-#     print HT.Exists(72)
-#     print HT.mSize
-#     for i in range(300000):
-#         HT.Insert(random.randrange(0,999999999))
-#     print HT.mSize
-#     print HT.mTableSize
-#
-#
-#
-#
-#
+def main():
+    HT = HashTable(300000)
+    HT.Insert(11)
+    HT.Insert(11)
+    HT.Insert(72)
+    print HT.Retrieve(72)
+    print HT.mSize
+    HT.Delete(11)
+    print HT.Exists(11)
+    HT.Delete(72)
+    print HT.Exists(72)
+    print HT.mSize
+    for i in range(300000):
+        HT.Insert(random.randrange(0,999999999))
+    print HT.mSize
+    print HT.mTableSize
+
+
+
+
+
 # main()

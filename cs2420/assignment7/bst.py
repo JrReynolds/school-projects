@@ -9,6 +9,19 @@ class BST:
         self.mRoot = None
         self.mSize = 0
 
+    def getSize(self):
+        return self.mSize
+
+    def getTrueSize(self):
+        size = self.getTrueSizeR(self.mRoot)
+        return size
+
+    def getTrueSizeR(self, current):
+        if current is None:
+            return 0
+        else:
+            return (self.getTrueSizeR(current.L) + 1 + self.getTrueSizeR(current.R))
+
     def Exists(self, data, retflag=False):
         ans = self.ExistsR(data, self.mRoot, retflag)
         return ans
@@ -59,23 +72,20 @@ class BST:
                 self.InsertR(data, current.R)
 
     def Traverse(self, callback, *args):
-        a = self.TraverseR(self.mRoot, callback, *args)
-        return a
+        self.TraverseR(self.mRoot, callback, *args)
 
     def TraverseR(self, current, callback, *args):
         if current is not None:
-            a = callback(current.data, *args)
+            callback(current.data, *args)
             if current.L is not None:
                 self.TraverseR(current.L, callback, *args)
             if current.R is not None:
                 self.TraverseR(current.R, callback, *args)
-            return a
-        else:
-            return False
 
     def Delete(self, data):
         if self.Exists(data):
             self.mRoot = self.DeleteR(data, self.mRoot)
+            self.mSize -= 1
             return True
         else:
             print "ERROR: Entry not found {}".format(data)

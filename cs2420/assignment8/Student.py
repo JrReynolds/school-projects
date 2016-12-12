@@ -46,10 +46,6 @@ class Student:
             b = int("".join(b))
             return a < b
 
-
-    # __int__ = intify
-
-
     def getSSN(self):
         return self.mSSN
 

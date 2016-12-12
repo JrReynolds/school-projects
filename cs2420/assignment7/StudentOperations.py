@@ -27,14 +27,13 @@ def InsertAllStudents(A, filename):
 
 
 def TraverseAllStudents(A):
-    total = 0.0
-    total += A.Traverse(TraverseAdd, total)
-    print total
+    A.Traverse(TraverseAdd)
+    print gAgeTotal/A.getTrueSize()
 
 
-def TraverseAdd(student, total):
-    total += int(student.getAge())
-    return total
+def TraverseAdd(student):
+    global gAgeTotal
+    gAgeTotal += student.getAge()
 
 def RemoveStudent(A, ssn):
     if ssn in A:
@@ -70,6 +69,7 @@ def RetrieveNames(A, filename):
 
     RetrieveFile.close()
 
+gAgeTotal = 0.0
 
 def main():
     # a = Student.Student("Henry", "Jones", "123-45-7899", "indianajones@awesome.com", "40")
@@ -84,6 +84,7 @@ def main():
 
     database = bst.BST()
     print "Insert Duration: " + str(timeSomething(InsertAllStudents, database, "InsertNames.txt"))
+    global gAgeTotal
     print "Traverse Duration: " + str(timeSomething(TraverseAllStudents, database))
     print "Delete Duration: " + str(timeSomething(DeleteStudents, database, "DeleteNames.txt"))
     print "Retrieve Duration: " + str(timeSomething(RetrieveNames, database, "RetrieveNames.txt"))
